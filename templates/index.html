@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animales API</title>
+  <script>
+    // Función para obtener todos los animales
+    async function cargarAnimales() {
+      const response = await fetch('/animales');
+      const data = await response.json();
+      const lista = document.getElementById('animales-lista');
+      lista.innerHTML = ''; // Limpiar lista
+      data.forEach(animal => {
+        const item = document.createElement('li');
+        item.textContent = `${animal.animal}`;
+        lista.appendChild(item);
+      });
+    }
+
+    // Función para consultar un animal específico
+    async function consultarAnimal() {
+      const nombreAnimal = document.getElementById('nombre-animal').value.toLowerCase();
+      const response = await fetch(`/animales/sonido/${nombreAnimal}`);
+      const data = await response.json();
+      const resultado = document.getElementById('resultado');
+      if (data.error) {
+        resultado.textContent = data.error;
+      } else {
+        resultado.textContent = `El ${data.animal} hace '${data.sonido}'`;
+      }
+    }
+
+    // Cargar los animales al cargar la página
+    window.onload = cargarAnimales;
+  </script>
+</head>
+
+<body>
+  <h1>Bienvenido a la API de Animales</h1>
+
+  <section>
+    <h2>Todos los animales</h2>
+    <ul id="animales-lista"></ul>
+  </section>
+
+  <section>
+    <h2>Consulta un animal</h2>
+    <input type="text" id="nombre-animal" placeholder="Escribe el nombre de un animal">
+    <button onclick="consultarAnimal()">Consultar</button>
+    <p id="resultado"></p>
+  </section>
+</body>
+
+</html>
