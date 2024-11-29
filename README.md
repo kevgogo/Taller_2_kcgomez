@@ -17,7 +17,12 @@ Una API básica construida con Flask para consultar información sobre animales 
    - Método: `GET`  
    - URL: `/animales`  
 
-3. **Página principal**  
+3. **Listar todos los animales y sonidos**  
+   - Método: `GET`  
+   - URL: `/animales/cedula/[CEDULA]`  
+   - Ejemplo: `/animales/cedula/1013681832`
+
+4. **Página principal**  
    - Método: `GET`  
    - URL: `/`  
 

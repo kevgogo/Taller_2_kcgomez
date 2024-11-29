@@ -32,6 +32,19 @@
       }
     }
 
+    // Función para consultar un animal por cédula
+    async function consultarPorCedula() {
+      const cedula = document.getElementById('cedula').value;
+      const response = await fetch(`/animales/cedula/${cedula}`);
+      const data = await response.json();
+      const resultadoCedula = document.getElementById('resultado-cedula');
+      if (data.error) {
+        resultadoCedula.textContent = data.error;
+      } else {
+        resultadoCedula.textContent = `La cédula ${data.cedula} corresponde a un ${data.animal} que hace '${data.sonido}'`;
+      }
+    }
+
     // Cargar los animales al cargar la página
     window.onload = cargarAnimales;
   </script>
@@ -46,10 +59,17 @@
   </section>
 
   <section>
-    <h2>Consulta un animal</h2>
+    <h2>Consulta un animal por nombre</h2>
     <input type="text" id="nombre-animal" placeholder="Escribe el nombre de un animal">
     <button onclick="consultarAnimal()">Consultar</button>
     <p id="resultado"></p>
+  </section>
+
+  <section>
+    <h2>Consulta un animal por cédula</h2>
+    <input type="text" id="cedula" placeholder="Escribe una cédula">
+    <button onclick="consultarPorCedula()">Consultar</button>
+    <p id="resultado-cedula"></p>
   </section>
 </body>
 
